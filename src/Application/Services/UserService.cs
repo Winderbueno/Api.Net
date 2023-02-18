@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using Application.Dtos;
 using Application.Exceptions;
 using Application.Services.Interfaces;
 using Domain.Entities;
@@ -8,7 +9,7 @@ using Domain.Entities;
  using Persistence.DbContexts;
  using Persistence.Repositories.Interfaces;
 // using FluentValidation;
-//using Microsoft.Extensions.Logging;
+using Microsoft.Extensions.Logging;
 
 namespace Application.Services
 {
