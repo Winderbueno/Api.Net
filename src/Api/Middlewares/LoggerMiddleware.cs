@@ -1,6 +1,6 @@
 ﻿using Microsoft.IO;
 
-namespace Bisa.Api.Middlewares
+namespace Api.Middlewares
 {
     public class LoggerMiddleware
     {
