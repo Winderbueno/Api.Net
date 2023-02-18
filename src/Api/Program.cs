@@ -12,9 +12,9 @@ confBuilder.SetBasePath(Directory.GetCurrentDirectory()+"\\src\\Api")
   .AddJsonFile($"appsettings.{Environment.GetEnvironmentVariable("ASPNETCORE_ENVIRONMENT")}.json", optional: true, reloadOnChange: true)
   .Build();
 
-var appConf = confBuilder.GetSection(AppConfiguration.SectionKey).Get<AppConfiguration>();
+var appConf = confBuilder.GetSection(AppConf.SectionKey).Get<AppConf>();
 builder.Services.Configure<ConnectionStrings>(confBuilder.GetSection(ConnectionStrings.SectionKey));
-builder.Services.Configure<AppConfiguration>(confBuilder.GetSection(AppConfiguration.SectionKey));
+builder.Services.Configure<AppConf>(confBuilder.GetSection(AppConf.SectionKey));
 #endregion
 
 // Add services to the container.
@@ -23,7 +23,7 @@ builder.Services.AddEndpointsApiExplorer();
 
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddSwaggerGen();
-builder.Services.AddTransient<IConfigureOptions<SwaggerGenOptions>, ConfigureSwaggerOptions>();
+builder.Services.AddTransient<IConfigureOptions<SwaggerGenOptions>, ConfigureSwaggerGen>();
 
 var app = builder.Build();
 

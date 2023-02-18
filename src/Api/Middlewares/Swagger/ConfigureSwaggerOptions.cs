@@ -7,12 +7,12 @@ using System.Reflection;
 
 namespace Api.Middlewares.Swagger
 {
-    public class ConfigureSwaggerOptions : IConfigureOptions<SwaggerGenOptions>
+    public class ConfigureSwaggerGen : IConfigureOptions<SwaggerGenOptions>
     {
-        public AppConfiguration AppConf { get; }
+        public AppConf AppConf { get; }
 
-        public ConfigureSwaggerOptions(IConfiguration configuration)
-          => AppConf = configuration.GetSection(AppConfiguration.SectionKey).Get<AppConfiguration>()!;
+        public ConfigureSwaggerGen(IConfiguration configuration)
+          => AppConf = configuration.GetSection(AppConf.SectionKey).Get<AppConf>()!;
         
 
         public void Configure(SwaggerGenOptions o)

@@ -4,6 +4,6 @@
     {
         public const string SectionKey = "ConnectionStrings";
 
-        public string DefaultConnection { get; set; }
+        public string? DefaultConnection { get; set; }
     }
 }
