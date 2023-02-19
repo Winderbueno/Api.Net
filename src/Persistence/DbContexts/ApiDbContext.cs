@@ -12,10 +12,10 @@ namespace Persistence.DbContexts
         private IHttpContextAccessor _httpContextRef;
 
         #region DbSet
-        public DbSet<User> Users { get; set; }
-        public DbSet<Role> Roles { get; set; }
-        public DbSet<Feature> Features { get; set; }
-        public DbSet<Permission> Permissions { get; set; }
+        public DbSet<User> Users { get; set; } = null!;
+        public DbSet<Role> Roles { get; set; } = null!;
+        public DbSet<Feature> Features { get; set; } = null!;
+        public DbSet<Permission> Permissions { get; set; } = null!;
         #endregion
 
         public ApiDbContext(

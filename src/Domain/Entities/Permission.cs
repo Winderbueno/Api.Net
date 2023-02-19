@@ -6,9 +6,9 @@ namespace Domain.Entities
     {
         public int PermissionId { get; set; }
 
-        public string Name { get; set; }
+        public string? Name { get; set; }
 
         // Nav | Features
-        public ICollection<Feature> Features { get; set; }
+        public ICollection<Feature>? Features { get; set; }
     }
 }

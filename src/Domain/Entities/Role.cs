@@ -7,16 +7,16 @@ namespace Domain.Entities
     {
         public int RoleId { get; set; }
 
-        public string Name { get; set; }
+        public string? Name { get; set; }
 
         public UserType UserType { get; set; }
 
         public Fonction Fonction { get; set; }
 
         // Nav | Features
-        public ICollection<Feature> Features { get; set; }
+        public ICollection<Feature>? Features { get; set; }
 
         // Nav | Users
-        public ICollection<User> Users { get; set; }
+        public ICollection<User>? Users { get; set; }
     }
 }

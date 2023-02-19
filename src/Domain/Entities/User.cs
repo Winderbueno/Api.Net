@@ -11,9 +11,9 @@ namespace Domain.Entities
 
         // Nav | Role
         public int RoleId { get; set; }
-        public Role Role { get; set; }
+        public Role? Role { get; set; }
 
         // Nav | Features
-        public ICollection<Feature> BetaFeatures { get; set; }
+        public ICollection<Feature>? BetaFeatures { get; set; }
     }
 }

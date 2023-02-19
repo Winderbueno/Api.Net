@@ -6,17 +6,17 @@ namespace Domain.Entities
     {
         public int FeatureId { get; set; }
 
-        public string Name { get; set; }
+        public string? Name { get; set; }
 
         public bool Beta { get; set; }
 
         // Nav | Users
-        public ICollection<User> Users { get; set; }
+        public ICollection<User>? Users { get; set; }
 
         // Nav | Roles
-        public ICollection<Role> Roles { get; set; }
+        public ICollection<Role>? Roles { get; set; }
 
         // Nav | Permissions
-        public ICollection<Permission> Permissions { get; set; }
+        public ICollection<Permission>? Permissions { get; set; }
     }
 }

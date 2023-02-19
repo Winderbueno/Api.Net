@@ -45,7 +45,7 @@ namespace Persistence
                 entities.ForEach(entity =>
                 {
                     TrackedEntity trackedEntity = entity as TrackedEntity;
-                    trackedEntity.CreatedAt = DateTime.Now;
+                    trackedEntity!.CreatedAt = DateTime.Now;
                     trackedEntity.CreatedBy = "DbInit";
                     trackedEntity.ModifiedAt = DateTime.Now;
                     trackedEntity.ModifiedBy = "DbInit";

@@ -14,6 +14,6 @@
 
         public int RoleId { get; set; }
 
-        public IEnumerable<string> Permissions { get; set; }
+        public IEnumerable<string>? Permissions { get; set; }
     }
 }
