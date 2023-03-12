@@ -4,8 +4,8 @@ namespace Persistence.Repositories.Interfaces
 {
     public interface IUserRepository
     {
-        List<int> GetUsers();
-        User? GetUserById(int id, bool deepLoad = false);
-        User AddUser(User user);
+        Task<IEnumerable<int>> Get();
+        Task<User?> Get(int id, bool deepLoad = false);
+        Task<User?> GetByIdentityId(Guid identityId);
     }
 }

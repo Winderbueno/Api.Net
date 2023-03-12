@@ -7,22 +7,23 @@ namespace api.Persistence.Repositories
 {
     public  class RoleRepository: IRoleRepository
     {
-        private readonly ApiDbContext _apiDb;
+        private readonly UserDbContext _userDb;
 
-        public RoleRepository(ApiDbContext apiDb) => _apiDb = apiDb;
+        public RoleRepository(UserDbContext userDb) 
+          => _userDb = userDb;
 
-        public Role? GetRoleById(int id, bool deepLoad = false)
+        public async Task<Role?> Get(int id, bool deepLoad = false)
         {
-            Role role;
+            Role? role;
 
             if (deepLoad)
-                role = _apiDb.Roles
-                    .Include(role => role.Features)
+                role = await _userDb.Roles
+                    .Include(role => role.Features!)
                     .ThenInclude(feature => feature.Permissions)
-                    .SingleOrDefault(e => e.RoleId == id);
+                    .SingleOrDefaultAsync(e => e.RoleId == id);
             else
-                role = _apiDb.Roles
-                    .SingleOrDefault(e => e.RoleId == id);
+                role = await _userDb.Roles
+                    .SingleOrDefaultAsync(e => e.RoleId == id);
 
             return role;
         }

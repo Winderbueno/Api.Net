@@ -3,7 +3,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace Persistence.DbContexts.Interfaces
 {
-    public interface IApiDbContext : IDisposable
+    public interface IUserDbContext : IDisposable
     {
         public DbSet<User> Users { get; set; }
 

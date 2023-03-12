@@ -4,7 +4,7 @@ using Domain.Enums;
 
 namespace Persistence
 {
-    public static class ApiDbSeeder
+    public static class UserDbSeeder
     {
         public static List<T> seedEntity<T>(List<string> names)
         {
@@ -44,7 +44,7 @@ namespace Persistence
             {
                 entities.ForEach(entity =>
                 {
-                    TrackedEntity trackedEntity = entity as TrackedEntity;
+                    TrackedEntity? trackedEntity = entity as TrackedEntity;
                     trackedEntity!.CreatedAt = DateTime.Now;
                     trackedEntity.CreatedBy = "DbInit";
                     trackedEntity.ModifiedAt = DateTime.Now;

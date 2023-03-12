@@ -7,7 +7,7 @@ using System.Security.Claims;
 
 namespace Persistence.DbContexts
 {
-    public partial class ApiDbContext : DbContext, IApiDbContext
+    public partial class UserDbContext : DbContext, IUserDbContext
     {
         private IHttpContextAccessor _httpContextRef;
 
@@ -18,8 +18,8 @@ namespace Persistence.DbContexts
         public DbSet<Permission> Permissions { get; set; } = null!;
         #endregion
 
-        public ApiDbContext(
-            DbContextOptions<ApiDbContext> options,
+        public UserDbContext(
+            DbContextOptions<UserDbContext> options,
             IHttpContextAccessor httpContextRef) : base(options)
           => _httpContextRef = httpContextRef;
         
@@ -37,15 +37,15 @@ namespace Persistence.DbContexts
 
             #region Seed Entities
             modelBuilder.Entity<Role>().HasData(
-                ApiDbSeeder.seedEntity<Role>(new List<string>() { 
+                UserDbSeeder.seedEntity<Role>(new List<string>() { 
                     "Baloise | Support", "Baloise | Charge Mission" }));
 
             modelBuilder.Entity<Feature>().HasData(
-                ApiDbSeeder.seedEntity<Feature>(new List<string>() { 
+                UserDbSeeder.seedEntity<Feature>(new List<string>() { 
                     "client", "user", "task", "contract" }));
 
             modelBuilder.Entity<Permission>().HasData(
-                ApiDbSeeder.seedEntity<Permission>(new List<string> {
+                UserDbSeeder.seedEntity<Permission>(new List<string> {
                     "client.read", "client.create", "client.update",
                     "user.read", "user.impersonate", "user.create", "user.update", "user.suspend", "user.deactivate",
                     "task.read", "task.create", "task.update",
@@ -57,7 +57,7 @@ namespace Persistence.DbContexts
                 .HasMany(f => f.Features)
                 .WithMany(f => f.Roles)
                 .UsingEntity(j => j.HasData(
-                    ApiDbSeeder.seedRelationRoleFeature(
+                    UserDbSeeder.seedRelationRoleFeature(
                         new Dictionary<int, List<int>> {
                             { 1, new List<int> { 1, 2, 3, 4 } }, // Entreprise | Support
                             { 2, new List<int> { 1, 3, 4 } }, // Entreprise | Charge Mission
@@ -67,7 +67,7 @@ namespace Persistence.DbContexts
                 .HasMany(f => f.Permissions)
                 .WithMany(f => f.Features)
                 .UsingEntity(j => j.HasData(
-                    ApiDbSeeder.seedRelationFeaturePermission(
+                    UserDbSeeder.seedRelationFeaturePermission(
                         new Dictionary<int, List<int>> {
                             { 1, new List<int> { 1, 2, 3 } }, // Client
                             { 2, new List<int> { 4, 5, 6, 7, 8, 9 } }, // User

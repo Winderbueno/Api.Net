@@ -1,11 +1,11 @@
 # Reset db
-dotnet ef --startup-project ../Bisa.Api/ database update 0
+dotnet ef --startup-project ../User.Api/ database update 0
 
 # Delete migrations
-dotnet ef --startup-project ../Bisa.Api/ migrations remove
+dotnet ef --startup-project ../User.Api/ migrations remove
  
 # Create initial migration
-dotnet ef --startup-project ../Bisa.Api/ migrations add BisaDb-Init -c BisaDbContext -o Migrations/BisaDb
+dotnet ef --startup-project ../User.Api/ migrations add UserDb-Init -c UserDbContext -o Migrations/UserDb
 
 # Update db with migration
-dotnet ef --startup-project ../Bisa.Api/ database update --context BisaDbContext
+dotnet ef --startup-project ../User.Api/ database update --context UserDbContext
