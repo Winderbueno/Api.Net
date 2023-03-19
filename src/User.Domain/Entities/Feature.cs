@@ -1,6 +1,6 @@
-﻿using Domain.Entities.Abstract;
+﻿using User.Domain.Entities.Abstract;
 
-namespace Domain.Entities
+namespace User.Domain.Entities
 {
     public class Feature : TrackedEntity
     {
@@ -11,7 +11,7 @@ namespace Domain.Entities
         public bool Beta { get; set; }
 
         // Nav | Users
-        public ICollection<User>? Users { get; set; }
+        public ICollection<UserK>? Users { get; set; }
 
         // Nav | Roles
         public ICollection<Role>? Roles { get; set; }

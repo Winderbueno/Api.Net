@@ -1,6 +1,6 @@
 ﻿using Microsoft.Net.Http.Headers;
 
-namespace User.Infrastructure.Bid.Helpers
+namespace User.Infrastructure.Identity.Helpers
 {
     public class XsrfHandler : DelegatingHandler
     {   

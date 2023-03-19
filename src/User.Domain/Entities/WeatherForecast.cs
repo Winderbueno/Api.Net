@@ -1,4 +1,4 @@
-namespace Domain.Entities;
+namespace User.Domain.Entities;
 
 public class WeatherForecast
 {

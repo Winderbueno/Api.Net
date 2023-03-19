@@ -14,7 +14,7 @@
     <PackageReference Include="Microsoft.EntityFrameworkCore" Version="7.0.3" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\Domain\Domain.csproj" />
+    <ProjectReference Include="..\User.Domain\User.Domain.csproj" />
   </ItemGroup>
 
 </Project>

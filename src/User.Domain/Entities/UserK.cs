@@ -1,8 +1,8 @@
-﻿using Domain.Entities.Abstract;
+﻿using User.Domain.Entities.Abstract;
 
-namespace Domain.Entities
+namespace User.Domain.Entities
 {
-    public class User : TrackedEntity
+    public class UserK : TrackedEntity
     {
         public int UserId { get; set; }
 

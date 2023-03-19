@@ -1,6 +1,6 @@
-﻿using Domain.Entities;
+﻿using User.Domain.Entities;
 
-namespace Persistence.Repositories.Interfaces
+namespace User.Persistence.Repositories.Interfaces
 {
     public interface IRoleRepository
     {

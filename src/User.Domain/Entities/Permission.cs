@@ -1,6 +1,6 @@
-﻿using Domain.Entities.Abstract;
+﻿using User.Domain.Entities.Abstract;
 
-namespace Domain.Entities
+namespace User.Domain.Entities
 {
     public class Permission : TrackedEntity
     {

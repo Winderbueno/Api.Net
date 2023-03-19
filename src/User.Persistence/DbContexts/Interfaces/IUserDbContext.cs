@@ -1,11 +1,11 @@
-﻿using Domain.Entities;
+﻿using User.Domain.Entities;
 using Microsoft.EntityFrameworkCore;
 
-namespace Persistence.DbContexts.Interfaces
+namespace User.Persistence.DbContexts.Interfaces
 {
     public interface IUserDbContext : IDisposable
     {
-        public DbSet<User> Users { get; set; }
+        public DbSet<UserK> Users { get; set; }
 
         public DbSet<Role> Roles { get; set; }
 

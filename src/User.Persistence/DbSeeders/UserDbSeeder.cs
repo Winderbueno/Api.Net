@@ -1,8 +1,8 @@
-﻿using Domain.Entities;
-using Domain.Entities.Abstract;
-using Domain.Enums;
+﻿using User.Domain.Entities;
+using User.Domain.Entities.Abstract;
+using User.Domain.Enums;
 
-namespace Persistence
+namespace User.Persistence.DbSeeders
 {
     public static class UserDbSeeder
     {

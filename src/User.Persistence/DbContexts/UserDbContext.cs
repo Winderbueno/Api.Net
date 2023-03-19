@@ -1,18 +1,19 @@
-﻿using Domain.Entities;
-using Domain.Entities.Interfaces;
-using Persistence.DbContexts.Interfaces;
+﻿using User.Domain.Entities;
+using User.Domain.Entities.Interfaces;
+using User.Persistence.DbContexts.Interfaces;
+using User.Persistence.DbSeeders;
 using Microsoft.AspNetCore.Http;
 using Microsoft.EntityFrameworkCore;
 using System.Security.Claims;
 
-namespace Persistence.DbContexts
+namespace User.Persistence.DbContexts
 {
     public partial class UserDbContext : DbContext, IUserDbContext
     {
         private IHttpContextAccessor _httpContextRef;
 
         #region DbSet
-        public DbSet<User> Users { get; set; } = null!;
+        public DbSet<UserK> Users { get; set; } = null!;
         public DbSet<Role> Roles { get; set; } = null!;
         public DbSet<Feature> Features { get; set; } = null!;
         public DbSet<Permission> Permissions { get; set; } = null!;
@@ -29,7 +30,7 @@ namespace Persistence.DbContexts
         protected override void OnModelCreating(ModelBuilder modelBuilder) 
         {
             #region Define Relations
-            modelBuilder.Entity<User>()
+            modelBuilder.Entity<UserK>()
                 .HasMany(f => f.BetaFeatures)
                 .WithMany(f => f.Users)
                 .UsingEntity(j => j.ToTable("BetaFeatureUserBisa"));

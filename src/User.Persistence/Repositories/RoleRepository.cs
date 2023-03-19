@@ -1,9 +1,9 @@
-﻿using Domain.Entities;
-using Persistence.DbContexts;
-using Persistence.Repositories.Interfaces;
+﻿using User.Domain.Entities;
+using User.Persistence.DbContexts;
+using User.Persistence.Repositories.Interfaces;
 using Microsoft.EntityFrameworkCore;
 
-namespace api.Persistence.Repositories
+namespace User.Persistence.Repositories
 {
     public  class RoleRepository: IRoleRepository
     {

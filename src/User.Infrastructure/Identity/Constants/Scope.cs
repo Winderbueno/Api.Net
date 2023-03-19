@@ -1,4 +1,4 @@
-﻿namespace User.Infrastructure.Bid.Constants
+﻿namespace User.Infrastructure.Identity.Constants
 {
     public static class Scope
     {

@@ -1,6 +1,6 @@
-﻿using Domain.Entities.Interfaces;
+﻿using User.Domain.Entities.Interfaces;
 
-namespace Domain.Entities.Abstract
+namespace User.Domain.Entities.Abstract
 {
     public class TrackedEntity : ITrackedEntity
     {

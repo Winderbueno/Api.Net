@@ -4,8 +4,8 @@
     {
         public bool Succeeded { get; set; }
 
-        public T Result { get; set; }
+        public T? Result { get; set; }
 
-        public List<string> Errors { get; set; }
+        public List<string>? Errors { get; set; }
     }
 }

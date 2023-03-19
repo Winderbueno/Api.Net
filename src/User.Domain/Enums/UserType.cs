@@ -1,4 +1,4 @@
-﻿namespace Domain.Enums
+﻿namespace User.Domain.Enums
 {
     public enum UserType
     {

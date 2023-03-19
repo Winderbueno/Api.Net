@@ -2,18 +2,18 @@
 using Application.Dtos;
 using Application.Exceptions;
 using Application.Services.Interfaces;
-using Domain.Entities;
+using User.Domain.Entities;
 using User.Infrastructure.Identity.Constants;
 using User.Infrastructure.Identity.Dto;
 using User.Infrastructure.Identity.Helpers;
-using Persistence.DbContexts;
-using Persistence.Repositories.Interfaces;
+using User.Persistence.DbContexts;
+using User.Persistence.Repositories.Interfaces;
 using FluentValidation;
 using Microsoft.Extensions.Logging;
 
 namespace Application.Services
 {
-    public  class UserService: IUserService
+    public  class UserService : IUserService
     {
         private readonly ILogger<UserService> _logger;
         private readonly IMapper _mapper;
@@ -74,7 +74,7 @@ namespace Application.Services
             var identityId = Guid.Empty;
             var user = await _userRepo.GetByIdentityId(identityId);
             if(true){
-                user = new User { IdentityId = identityId, RoleId = userDto.RoleId }; 
+                user = new UserK { IdentityId = identityId, RoleId = userDto.RoleId }; 
                 await _userDb.AddAsync(userDto);
                 _userDb.SaveChanges();
             }
@@ -96,7 +96,7 @@ namespace Application.Services
             if (role == null) throw new ValidationException($"Role with id : {userDto.RoleId}, not found in db");
 
             // Get Identity
-            //var resp = await _bidApi.GetAsyncBid<UserBid>($"/users/{user.IdentityId}");
+            var resp = await _identityApi.GetAsyncIdentity<Identity>($"/users/{user.IdentityId}");
 
             // Update user (.db)
             user!.RoleId = userDto.RoleId;
@@ -108,7 +108,7 @@ namespace Application.Services
 
         
 
-        private UserDto mapUserDto(User user, Identity userBid)
+        private UserDto mapUserDto(UserK user, Identity userBid)
         {
             // Map Baloise identity
             UserDto userDto = _mapper.Map<UserDto>(userBid);
@@ -124,7 +124,7 @@ namespace Application.Services
             return userDto;
         }
 
-        private List<string> mapPermissions(User user)
+        private List<string> mapPermissions(UserK user)
         {
             List<string> permissions = new List<string>();
             List<Feature> features = user.Role?.Features?.ToList();

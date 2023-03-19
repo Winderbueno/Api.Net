@@ -1,9 +1,9 @@
-﻿using Domain.Entities;
-using Persistence.DbContexts;
-using Persistence.Repositories.Interfaces;
+﻿using User.Domain.Entities;
+using User.Persistence.DbContexts;
+using User.Persistence.Repositories.Interfaces;
 using Microsoft.EntityFrameworkCore;
 
-namespace Persistence.Repositories
+namespace User.Persistence.Repositories
 {
   public class UserRepository : IUserRepository
   {
@@ -15,9 +15,9 @@ namespace Persistence.Repositories
     public async Task<IEnumerable<int>> Get()
       => await _userDb.Users.Select(u => u.UserId).ToListAsync();
 
-    public async Task<User?> Get(int id, bool deepLoad = false)
+    public async Task<UserK?> Get(int id, bool deepLoad = false)
     {
-      User? user;
+      UserK? user;
 
       if (deepLoad)
         user = await _userDb.Users
@@ -32,7 +32,7 @@ namespace Persistence.Repositories
       return user;
     }
 
-    public async Task<User?> GetByIdentityId(Guid identityId)
+    public async Task<UserK?> GetByIdentityId(Guid identityId)
       => await _userDb.Users
           .Include(user => user.Role!.Features!)
           .ThenInclude(feature => feature.Permissions)

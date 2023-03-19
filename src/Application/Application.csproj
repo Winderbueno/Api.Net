@@ -1,8 +1,9 @@
 <Project Sdk="Microsoft.NET.Sdk">
 
   <ItemGroup>
+    <ProjectReference Include="..\User.Domain\User.Domain.csproj" />
     <ProjectReference Include="..\User.Infrastructure\User.Infrastructure.csproj" />
-    <ProjectReference Include="..\Persistence\Persistence.csproj" />
+    <ProjectReference Include="..\User.Persistence\User.Persistence.csproj" />
   </ItemGroup>
 
   <PropertyGroup>

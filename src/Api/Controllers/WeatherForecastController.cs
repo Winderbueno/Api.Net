@@ -1,4 +1,4 @@
-using Domain.Entities;
+using User.Domain.Entities;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Api.Controllers;

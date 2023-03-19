@@ -1,7 +1,7 @@
-﻿using Domain.Entities.Abstract;
-using Domain.Enums;
+﻿using User.Domain.Entities.Abstract;
+using User.Domain.Enums;
 
-namespace Domain.Entities
+namespace User.Domain.Entities
 {
     public class Role : TrackedEntity
     {
@@ -17,6 +17,6 @@ namespace Domain.Entities
         public ICollection<Feature>? Features { get; set; }
 
         // Nav | Users
-        public ICollection<User>? Users { get; set; }
+        public ICollection<UserK>? Users { get; set; }
     }
 }

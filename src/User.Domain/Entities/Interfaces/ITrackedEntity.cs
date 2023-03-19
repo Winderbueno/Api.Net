@@ -1,4 +1,4 @@
-﻿namespace Domain.Entities.Interfaces
+﻿namespace User.Domain.Entities.Interfaces
 {
     public interface ITrackedEntity
     {
