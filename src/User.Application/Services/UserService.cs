@@ -1,7 +1,7 @@
 ﻿using AutoMapper;
-using Application.Dtos;
-using Application.Exceptions;
-using Application.Services.Interfaces;
+using User.Application.Dtos;
+using User.Application.Exceptions;
+using User.Application.Services.Interfaces;
 using User.Domain.Entities;
 using User.Infrastructure.Identity.Constants;
 using User.Infrastructure.Identity.Dto;
@@ -11,7 +11,7 @@ using User.Persistence.Repositories.Interfaces;
 using FluentValidation;
 using Microsoft.Extensions.Logging;
 
-namespace Application.Services
+namespace User.Application.Services
 {
     public  class UserService : IUserService
     {
@@ -49,7 +49,7 @@ namespace Application.Services
             if(user == null) throw new EntityNotFoundException("User", "id", id.ToString());
 
             // Get Identity
-            var resp = await _identityApi.GetAsyncIdentity<Identity>($"/identities/{user.IdentityId}");
+            var resp = await _identityApi.GetAsyncIdentity<IdentityDto>($"/identities/{user.IdentityId}");
 
             // Build response
             return mapUserDto(user, resp.Result);
@@ -63,8 +63,8 @@ namespace Application.Services
 
             // Create/Updt Identity
             // Todo - Call Api + Handle Errors (Identity already exists...)
-            Identity identity = _mapper.Map<Identity>(userDto);
-            var resp = await _identityApi.PostAsyncIdentity<Identity[], Identity[]>("/users", new[] { identity });
+            IdentityDto identityDto = _mapper.Map<IdentityDto>(userDto);
+            var resp = await _identityApi.PostAsyncIdentity<IdentityDto[], IdentityDto[]>("/users", new[] { identityDto });
             if (resp?.Succeeded == false)
             {
                 _logger.LogError("Could not create identity: {@errors}", resp?.Errors);
@@ -78,7 +78,6 @@ namespace Application.Services
                 await _userDb.AddAsync(userDto);
                 _userDb.SaveChanges();
             }
-                         
             
             // Get user permissions (.db)
             user = await _userRepo.Get(user.UserId, true);
@@ -96,7 +95,7 @@ namespace Application.Services
             if (role == null) throw new ValidationException($"Role with id : {userDto.RoleId}, not found in db");
 
             // Get Identity
-            var resp = await _identityApi.GetAsyncIdentity<Identity>($"/users/{user.IdentityId}");
+            var resp = await _identityApi.GetAsyncIdentity<IdentityDto>($"/users/{user.IdentityId}");
 
             // Update user (.db)
             user!.RoleId = userDto.RoleId;
@@ -108,10 +107,10 @@ namespace Application.Services
 
         
 
-        private UserDto mapUserDto(UserK user, Identity userBid)
+        private UserDto mapUserDto(UserK user, IdentityDto identityDto)
         {
             // Map Baloise identity
-            UserDto userDto = _mapper.Map<UserDto>(userBid);
+            UserDto userDto = _mapper.Map<UserDto>(identityDto);
 
             // Map  user
             if (userDto != null)

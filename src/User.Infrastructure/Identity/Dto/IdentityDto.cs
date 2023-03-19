@@ -1,8 +1,8 @@
-﻿namespace Application.Dtos
+﻿namespace User.Infrastructure.Identity.Dto
 {
-    public class UserDto
+    public class IdentityDto
     {
-        public int UserId { get; set; }
+        public Guid Id { get; set; }
 
         public string? FirstName { get; set; }
 
@@ -12,8 +12,6 @@
 
         public string? Phone { get; set; }
 
-        public int RoleId { get; set; }
-
-        public IEnumerable<string>? Permissions { get; set; }
+        public string? Language { get; set; }
     }
 }
