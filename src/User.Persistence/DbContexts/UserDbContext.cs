@@ -10,7 +10,7 @@ namespace User.Persistence.DbContexts
 {
     public partial class UserDbContext : DbContext, IUserDbContext
     {
-        private IHttpContextAccessor _httpContextRef;
+        private IHttpContextAccessor _httpCtxRef;
 
         #region DbSet
         public DbSet<UserK> Users { get; set; } = null!;
@@ -21,8 +21,8 @@ namespace User.Persistence.DbContexts
 
         public UserDbContext(
             DbContextOptions<UserDbContext> options,
-            IHttpContextAccessor httpContextRef) : base(options)
-          => _httpContextRef = httpContextRef;
+            IHttpContextAccessor httpCtxRef) : base(options)
+          => _httpCtxRef = httpCtxRef;
         
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder) { }
@@ -99,7 +99,7 @@ namespace User.Persistence.DbContexts
                     && (x.State == EntityState.Added 
                         || x.State == EntityState.Modified));
 
-            var httpCtxUser = _httpContextRef.HttpContext?.User;
+            var httpCtxUser = _httpCtxRef.HttpContext?.User;
             string userName = httpCtxUser?.FindFirst(c => c.Type == ClaimTypes.Email)?.Value ?? // user connection : email
                               httpCtxUser?.FindFirst(c => c.Type == "client_id")?.Value ?? // m2m connection : client_id
                               "anonymous";
