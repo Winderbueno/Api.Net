@@ -33,13 +33,13 @@ namespace User.Persistence.DbContexts
             modelBuilder.Entity<UserK>()
                 .HasMany(f => f.BetaFeatures)
                 .WithMany(f => f.Users)
-                .UsingEntity(j => j.ToTable("BetaFeatureUserBisa"));
+                .UsingEntity(j => j.ToTable("BetaFeatureUserK"));
             #endregion
 
             #region Seed Entities
             modelBuilder.Entity<Role>().HasData(
                 UserDbSeeder.seedEntity<Role>(new List<string>() { 
-                    "Baloise | Support", "Baloise | Charge Mission" }));
+                    "Entreprise | Support", "Entreprise | Distributeur" }));
 
             modelBuilder.Entity<Feature>().HasData(
                 UserDbSeeder.seedEntity<Feature>(new List<string>() { 
@@ -107,16 +107,16 @@ namespace User.Persistence.DbContexts
             foreach (var entityEntry in entityEntries)
             {
                 var now = DateTime.Now;
-                var bisaEntity = (ITrackedEntity)entityEntry.Entity;
+                var entity = (ITrackedEntity)entityEntry.Entity;
 
                 if (entityEntry.State == EntityState.Added)
                 {
-                    bisaEntity.CreatedAt = now;
-                    bisaEntity.CreatedBy = userName;
+                    entity.CreatedAt = now;
+                    entity.CreatedBy = userName;
                 }
 
-                bisaEntity.ModifiedAt = now;
-                bisaEntity.ModifiedBy = userName;
+                entity.ModifiedAt = now;
+                entity.ModifiedBy = userName;
             }
         }
         #endregion

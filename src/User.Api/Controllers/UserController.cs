@@ -5,7 +5,7 @@ using FluentValidation;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
-namespace Bisa.Api.Controllers
+namespace User.Api.Controllers
 {
     // [ApiVersion("1.0")]
     [Produces("application/json")]

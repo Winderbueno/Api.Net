@@ -109,10 +109,10 @@ namespace User.Application.Services
 
         private UserDto mapUserDto(UserK user, IdentityDto identityDto)
         {
-            // Map Baloise identity
+            // Map Identity
             UserDto userDto = _mapper.Map<UserDto>(identityDto);
 
-            // Map  user
+            // Map User
             if (userDto != null)
             {
                 userDto.UserId = user.UserId;
