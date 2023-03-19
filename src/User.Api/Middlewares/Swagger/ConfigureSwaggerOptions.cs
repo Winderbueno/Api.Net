@@ -1,18 +1,18 @@
-﻿using Api.Configuration;
-using Api.Middlewares.Swagger.Filters;
+﻿using User.Api.Configuration;
+using User.Api.Middlewares.Swagger.Filters;
 using Microsoft.Extensions.Options;
 using Microsoft.OpenApi.Models;
 using Swashbuckle.AspNetCore.SwaggerGen;
 using System.Reflection;
 
-namespace Api.Middlewares.Swagger
+namespace User.Api.Middlewares.Swagger
 {
     public class ConfigureSwaggerGen : IConfigureOptions<SwaggerGenOptions>
     {
-        public AppConf AppConf { get; }
+        public ApiConf ApiConf { get; }
 
         public ConfigureSwaggerGen(IConfiguration configuration)
-          => AppConf = configuration.GetSection(AppConf.SectionKey).Get<AppConf>()!;
+          => ApiConf = configuration.GetSection(ApiConf.SectionKey).Get<ApiConf>()!;
         
 
         public void Configure(SwaggerGenOptions o)
@@ -23,7 +23,7 @@ namespace Api.Middlewares.Swagger
             // o.IncludeXmlComments(xmlPath);
 
             // Add 'Username' input on all operation
-            if(AppConf.Environment != Env.Dev)
+            if(ApiConf.Environment != Env.Dev)
                 o.OperationFilter<RequiredParameterFilter>();
 
             // Convert enum in schema definition
@@ -50,8 +50,8 @@ namespace Api.Middlewares.Swagger
                 {
                     AuthorizationCode = new OpenApiOAuthFlow()
                     {
-                        AuthorizationUrl = new Uri($"{AppConf.AuthorityUrl}/connect/authorize"),
-                        TokenUrl = new Uri($"{AppConf.AuthorityUrl}/connect/token"), 
+                        AuthorizationUrl = new Uri($"{ApiConf.AuthorityUrl}/connect/authorize"),
+                        TokenUrl = new Uri($"{ApiConf.AuthorityUrl}/connect/token"), 
                         Scopes = new Dictionary<string, string> { { "Scope.Api", "Api" } } // Todo - Scope in Cste
                     }
                 }

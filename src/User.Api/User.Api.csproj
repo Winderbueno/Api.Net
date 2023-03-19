@@ -10,6 +10,7 @@
     <PackageReference Include="Microsoft.IO.RecyclableMemoryStream" Version="2.3.1" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\User.Application\User.Application.csproj" />
     <ProjectReference Include="..\User.Domain\User.Domain.csproj" />
   </ItemGroup>
 </Project>

@@ -1,7 +1,7 @@
 using User.Domain.Entities;
 using Microsoft.AspNetCore.Mvc;
 
-namespace Api.Controllers;
+namespace User.Api.Controllers;
 
 [ApiController]
 [Route("[controller]")]

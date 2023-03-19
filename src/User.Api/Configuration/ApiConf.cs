@@ -1,6 +1,6 @@
-﻿namespace Api.Configuration
+﻿namespace User.Api.Configuration
 {
-    public class AppConf
+    public class ApiConf
     {
         public const string SectionKey = "Application";
 
@@ -12,7 +12,7 @@
 
         public string? AuthorityUrl { get; set; }
 
-        public string? BidApiUrl { get; set; }
+        public string? IdentityApiUrl { get; set; }
     }
 
     public enum Env

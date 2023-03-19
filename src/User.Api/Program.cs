@@ -1,5 +1,5 @@
-using Api.Configuration;
-using Api.Middlewares.Swagger;
+using User.Api.Configuration;
+using User.Api.Middlewares.Swagger;
 using Microsoft.Extensions.Options;
 using Swashbuckle.AspNetCore.SwaggerGen;
 
@@ -7,14 +7,14 @@ var builder = WebApplication.CreateBuilder(args);
 
 #region Api | Configuration
 var confBuilder = builder.Configuration;
-confBuilder.SetBasePath(Directory.GetCurrentDirectory()+"\\src\\Api")
+confBuilder.SetBasePath(Directory.GetCurrentDirectory()+"\\src\\User.Api")
   .AddJsonFile("appsettings.json", optional: false, reloadOnChange: true)
   .AddJsonFile($"appsettings.{Environment.GetEnvironmentVariable("ASPNETCORE_ENVIRONMENT")}.json", optional: true, reloadOnChange: true)
   .Build();
 
-var appConf = confBuilder.GetSection(AppConf.SectionKey).Get<AppConf>();
+var apiConf = confBuilder.GetSection(ApiConf.SectionKey).Get<ApiConf>();
 builder.Services.Configure<ConnectionStrings>(confBuilder.GetSection(ConnectionStrings.SectionKey));
-builder.Services.Configure<AppConf>(confBuilder.GetSection(AppConf.SectionKey));
+builder.Services.Configure<ApiConf>(confBuilder.GetSection(ApiConf.SectionKey));
 #endregion
 
 // Add services to the container.

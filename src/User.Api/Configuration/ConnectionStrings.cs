@@ -1,4 +1,4 @@
-﻿namespace Api.Configuration
+﻿namespace User.Api.Configuration
 {
     public class ConnectionStrings
     {

@@ -1,6 +1,6 @@
 ﻿using Microsoft.IO;
 
-namespace Api.Middlewares
+namespace User.Api.Middlewares
 {
     public class LoggerMiddleware
     {

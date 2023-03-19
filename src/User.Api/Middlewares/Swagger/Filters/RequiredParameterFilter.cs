@@ -2,7 +2,7 @@
 using Microsoft.OpenApi.Models;
 using Swashbuckle.AspNetCore.SwaggerGen;
 
-namespace Api.Middlewares.Swagger.Filters
+namespace User.Api.Middlewares.Swagger.Filters
 {
     /// <summary>
     /// Adds the field username on swagger which is required by the API

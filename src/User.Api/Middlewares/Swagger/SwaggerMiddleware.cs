@@ -1,6 +1,6 @@
 ﻿using Swashbuckle.AspNetCore.SwaggerUI;
 
-namespace Api.Middlewares.Swagger
+namespace User.Api.Middlewares.Swagger
 {
     public static class SwaggerMiddleware
     {
