@@ -12,7 +12,7 @@ namespace User.Infrastructure.Identity.Helpers
             CancellationToken cancellationToken)
         {
             var refreshXsrfTokenMesssage = new HttpRequestMessage() {
-                RequestUri = new Uri(request.RequestUri, "/security/refreshxsrftoken"),
+                RequestUri = new Uri(request.RequestUri!, "/security/refreshxsrftoken"),
                 Method = HttpMethod.Get,
             };
 

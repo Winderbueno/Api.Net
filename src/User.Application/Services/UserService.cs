@@ -50,9 +50,10 @@ namespace User.Application.Services
 
             // Get Identity
             var resp = await _identityApi.GetAsyncIdentity<IdentityDto>($"/identities/{user.IdentityId}");
+            if(resp?.Succeeded == false) throw new ApplicationException("identity.api call error");
 
             // Build response
-            return mapUserDto(user, resp.Result);
+            return (mapUserDto(user, resp!.Result!))!;
         }
 
         public async Task<UserDto> CreateAsync(UserDto userDto)
@@ -117,18 +118,21 @@ namespace User.Application.Services
             {
                 userDto.UserId = user.UserId;
                 userDto.RoleId = user.RoleId;
-                userDto.Permissions = mapPermissions(user);
+                userDto.Permissions = FlattenPermission(user);
             }
 
             return userDto;
         }
 
-        private List<string> mapPermissions(UserK user)
+        private List<string> FlattenPermission(UserK user)
         {
-            List<string> permissions = new List<string>();
-            List<Feature> features = user.Role?.Features?.ToList();
-            features?.ForEach(f => { f.Permissions.ToList().ForEach(p => permissions.Add(p.Name)); });
-            return permissions;
+            return user.Role?.Features?.ToList()
+              .Aggregate(
+                new List<string>(),
+                (result, value) => {
+                  result.AddRange(value.Permissions.Select(p => p.Name));
+                  return result;
+                }) ?? new List<string>();
         }
     }
 }
