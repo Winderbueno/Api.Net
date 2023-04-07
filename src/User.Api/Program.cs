@@ -1,3 +1,4 @@
+using FluentValidation;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.Extensions.Options;
 using Swashbuckle.AspNetCore.SwaggerGen;
@@ -7,6 +8,8 @@ using User.Api.Middlewares.Authorization;
 using User.Api.Middlewares.Authentication;
 using User.Api.Middlewares.Swagger;
 using Claim = User.Infrastructure.Identity.Constants.Claim;
+using System.Reflection;
+using User.Application.Validators;
 
 var builder = WebApplication.CreateBuilder(args);
 var services = builder.Services;
@@ -52,6 +55,15 @@ services.AddAuthorization(o => {
 #region Endpoints
 services.AddControllers();
 services.AddEndpointsApiExplorer();
+#endregion
+
+#region Error Handling
+// ProblemDetails
+//services.AddProblemDetails();
+//services.AddTransient<IConfigureOptions<ProblemDetailsOptions>, ConfigureProblemDetailsOptions>();
+
+// Input Validation (FluentValidation)
+services.AddValidatorsFromAssembly(Assembly.Load("User.Application"));
 #endregion
 
 #region Http Client
