@@ -60,7 +60,6 @@ services.AddEndpointsApiExplorer();
 #region Error Handling
 // ProblemDetails
 services.AddProblemDetails();
-//services.AddTransient<IConfigureOptions<ProblemDetailsOptions>, ConfigureProblemDetailsOptions>();
 
 // Input Validation (FluentValidation)
 services.AddValidatorsFromAssembly(Assembly.Load("User.Application"));
@@ -84,7 +83,6 @@ if (app.Environment.IsDevelopment())
     app.UseSwaggerUI(o => SwaggerMiddleware.SwaggerUIConf(o));
 }
 
-app.UseProblemDetails();
 app.UseExceptionHandler(new ExceptionHandlerOptions()
 {
   AllowStatusCode404Response = true,
