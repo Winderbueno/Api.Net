@@ -7,7 +7,7 @@ using User.Application.Services.Interfaces;
 using User.Domain.Entities;
 using User.Infrastructure.Identity.Dto;
 using User.Infrastructure.Identity.Helpers;
-using User.Persistence.DbContexts;
+using User.Persistence.Db;
 using User.Persistence.Repositories.Interfaces;
 
 namespace User.Application.Services

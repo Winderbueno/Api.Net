@@ -1,5 +1,5 @@
 ﻿using User.Domain.Entities;
-using User.Persistence.DbContexts;
+using User.Persistence.Db;
 using User.Persistence.Repositories.Interfaces;
 using Microsoft.EntityFrameworkCore;
 

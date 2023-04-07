@@ -1,14 +1,12 @@
 ﻿using User.Domain.Entities;
 using User.Domain.Entities.Interfaces;
-using User.Persistence.DbContexts.Interfaces;
-using User.Persistence.DbSeeders;
 using Microsoft.AspNetCore.Http;
 using Microsoft.EntityFrameworkCore;
 using System.Security.Claims;
 
-namespace User.Persistence.DbContexts
+namespace User.Persistence.Db
 {
-    public partial class UserDbContext : DbContext, IUserDbContext
+    public partial class UserDbContext : DbContext
     {
         private IHttpContextAccessor _httpCtxRef;
 
@@ -27,26 +25,26 @@ namespace User.Persistence.DbContexts
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder) { }
 
-        protected override void OnModelCreating(ModelBuilder modelBuilder) 
+        protected override void OnModelCreating(ModelBuilder builder) 
         {
             #region Define Relations
-            modelBuilder.Entity<UserK>()
+            builder.Entity<UserK>()
                 .HasMany(f => f.BetaFeatures)
                 .WithMany(f => f.Users)
                 .UsingEntity(j => j.ToTable("BetaFeatureUserK"));
             #endregion
 
             #region Seed Entities
-            modelBuilder.Entity<Role>().HasData(
-                UserDbSeeder.seedEntity<Role>(new List<string>() { 
+            builder.Entity<Role>().HasData(
+                UserDbSeed.Entity<Role>(new List<string>() { 
                     "Entreprise | Support", "Entreprise | Distributeur" }));
 
-            modelBuilder.Entity<Feature>().HasData(
-                UserDbSeeder.seedEntity<Feature>(new List<string>() { 
+            builder.Entity<Feature>().HasData(
+                UserDbSeed.Entity<Feature>(new List<string>() { 
                     "client", "user", "task", "contract" }));
 
-            modelBuilder.Entity<Permission>().HasData(
-                UserDbSeeder.seedEntity<Permission>(new List<string> {
+            builder.Entity<Permission>().HasData(
+                UserDbSeed.Entity<Permission>(new List<string> {
                     "client.read", "client.create", "client.update",
                     "user.read", "user.impersonate", "user.create", "user.update", "user.suspend", "user.deactivate",
                     "task.read", "task.create", "task.update",
@@ -54,21 +52,21 @@ namespace User.Persistence.DbContexts
             #endregion
 
             #region Seed Relations
-            modelBuilder.Entity<Role>()
+            builder.Entity<Role>()
                 .HasMany(f => f.Features)
                 .WithMany(f => f.Roles)
                 .UsingEntity(j => j.HasData(
-                    UserDbSeeder.seedRelationRoleFeature(
+                    UserDbSeed.RelationRoleFeature(
                         new Dictionary<int, List<int>> {
                             { 1, new List<int> { 1, 2, 3, 4 } }, // Entreprise | Support
                             { 2, new List<int> { 1, 3, 4 } }, // Entreprise | Charge Mission
                         })));
 
-            modelBuilder.Entity<Feature>()
+            builder.Entity<Feature>()
                 .HasMany(f => f.Permissions)
                 .WithMany(f => f.Features)
                 .UsingEntity(j => j.HasData(
-                    UserDbSeeder.seedRelationFeaturePermission(
+                    UserDbSeed.RelationFeaturePermission(
                         new Dictionary<int, List<int>> {
                             { 1, new List<int> { 1, 2, 3 } }, // Client
                             { 2, new List<int> { 4, 5, 6, 7, 8, 9 } }, // User

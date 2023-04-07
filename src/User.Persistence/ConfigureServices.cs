@@ -1,6 +1,5 @@
 using Microsoft.EntityFrameworkCore;
-using User.Persistence.DbContexts;
-using User.Persistence.DbContexts.Interfaces;
+using User.Persistence.Db;
 using User.Persistence.Repositories;
 using User.Persistence.Repositories.Interfaces;
 
@@ -22,8 +21,6 @@ public static class ConfigureServices
     });
 
     services.AddHealthChecks().AddDbContextCheck<UserDbContext>();
-
-    services.AddScoped<IUserDbContext>(provider => provider.GetService<UserDbContext>()!);
 
     return services;
   }

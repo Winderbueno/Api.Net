@@ -2,11 +2,11 @@
 using User.Domain.Entities.Abstract;
 using User.Domain.Enums;
 
-namespace User.Persistence.DbSeeders
+namespace User.Persistence.Db
 {
-    public static class UserDbSeeder
+    public static class UserDbSeed
     {
-        public static List<T> seedEntity<T>(List<string> names)
+        public static List<T> Entity<T>(List<string> names)
         {
             List<T> entities = new List<T> { };
 
@@ -55,7 +55,7 @@ namespace User.Persistence.DbSeeders
             return entities;
         }
 
-        public static object[] seedRelationFeaturePermission(Dictionary<int, List<int>> relations)
+        public static object[] RelationFeaturePermission(Dictionary<int, List<int>> relations)
         {
             var rels = (new[] {
                 new { 
@@ -77,7 +77,7 @@ namespace User.Persistence.DbSeeders
             return rels.ToArray();
         }
 
-        public static object[] seedRelationRoleFeature(Dictionary<int, List<int>> relations)
+        public static object[] RelationRoleFeature(Dictionary<int, List<int>> relations)
         {
             var rels = (new[] {
                 new {
