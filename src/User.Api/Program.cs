@@ -2,14 +2,14 @@ using FluentValidation;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.Extensions.Options;
 using Swashbuckle.AspNetCore.SwaggerGen;
+using System.Reflection;
 using System.Security.Claims;
 using User.Api.Configuration;
 using User.Api.Middlewares.Authorization;
 using User.Api.Middlewares.Authentication;
+using User.Api.Middlewares.ErrorHandling;
 using User.Api.Middlewares.Swagger;
 using Claim = User.Infrastructure.Identity.Constants.Claim;
-using System.Reflection;
-using User.Application.Validators;
 
 var builder = WebApplication.CreateBuilder(args);
 var services = builder.Services;
@@ -59,7 +59,7 @@ services.AddEndpointsApiExplorer();
 
 #region Error Handling
 // ProblemDetails
-//services.AddProblemDetails();
+services.AddProblemDetails();
 //services.AddTransient<IConfigureOptions<ProblemDetailsOptions>, ConfigureProblemDetailsOptions>();
 
 // Input Validation (FluentValidation)
@@ -83,6 +83,13 @@ if (app.Environment.IsDevelopment())
     app.UseSwagger();
     app.UseSwaggerUI(o => SwaggerMiddleware.SwaggerUIConf(o));
 }
+
+app.UseProblemDetails();
+app.UseExceptionHandler(new ExceptionHandlerOptions()
+{
+  AllowStatusCode404Response = true,
+  ExceptionHandler = async httpCtx => ExceptionMiddleware.ExceptionHandler(httpCtx)
+});
 
 app.UseHttpsRedirection();
 app.UseAuthorization();

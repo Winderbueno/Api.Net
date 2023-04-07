@@ -44,7 +44,7 @@ namespace User.Application.Services
         {
             // Get user (.db)
             var user = await _userRepo.Get(id, true);
-            if(user == null) throw new EntityNotFoundException("User", "id", id.ToString());
+            if(user == null) throw new NotFoundException("User", "id", id.ToString());
 
             // Get Identity
             var resp = _identityApi.GetAsyncIdentityStub();
@@ -89,7 +89,7 @@ namespace User.Application.Services
         {
             // Input check
             var user = await _userRepo.Get(userDto.UserId, true);
-            if (user == null) throw new EntityNotFoundException("User", "id", userDto.UserId.ToString());
+            if (user == null) throw new NotFoundException("User", "id", userDto.UserId.ToString());
             var role = await _roleRepo.Get(userDto.RoleId);
             if (role == null) throw new ValidationException($"Role with id : {userDto.RoleId}, not found in db");
 
