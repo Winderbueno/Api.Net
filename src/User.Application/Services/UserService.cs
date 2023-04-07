@@ -1,15 +1,14 @@
 ﻿using AutoMapper;
+using FluentValidation;
+using Microsoft.Extensions.Logging;
 using User.Application.Dtos;
 using User.Application.Exceptions;
 using User.Application.Services.Interfaces;
 using User.Domain.Entities;
-using User.Infrastructure.Identity.Constants;
 using User.Infrastructure.Identity.Dto;
 using User.Infrastructure.Identity.Helpers;
 using User.Persistence.DbContexts;
 using User.Persistence.Repositories.Interfaces;
-using FluentValidation;
-using Microsoft.Extensions.Logging;
 
 namespace User.Application.Services
 {
@@ -27,14 +26,13 @@ namespace User.Application.Services
             IMapper mapper,
             IUserRepository userRepo,
             IRoleRepository roleRepo,
-            IHttpClientFactory factory,
             UserDbContext userDb)
         {
             _logger = logger;
             _mapper = mapper;
             _userRepo = userRepo;
             _roleRepo = roleRepo;
-            _identityApi = factory.CreateClient(HttpClientName.IdentityApi);
+            _identityApi = new HttpClient();
             _userDb = userDb;
         }
 
@@ -49,7 +47,7 @@ namespace User.Application.Services
             if(user == null) throw new EntityNotFoundException("User", "id", id.ToString());
 
             // Get Identity
-            var resp = await _identityApi.GetAsyncIdentity<IdentityDto>($"/identities/{user.IdentityId}");
+            var resp = _identityApi.GetAsyncIdentityStub();
             if(resp?.Succeeded == false) throw new ApplicationException("identity.api call error");
 
             // Build response
@@ -84,7 +82,7 @@ namespace User.Application.Services
             user = await _userRepo.Get(user.UserId, true);
 
             // Build response
-            return mapUserDto(user, resp.Result.First());
+            return mapUserDto(user!, resp!.Result!.First());
         }
 
         public async Task<UserDto> UpdateAsync(UserDto userDto)

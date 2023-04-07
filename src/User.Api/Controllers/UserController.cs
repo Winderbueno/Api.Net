@@ -35,7 +35,8 @@ namespace User.Api.Controllers
         /// Read by id
         /// </summary>
         [HttpGet("{id:int}")]
-        [Authorize("user.read")]
+        //[Authorize("user.read")]
+        [AllowAnonymous]
         public async Task<ActionResult<UserDto>> GetAsync(int id)
           => await _userService.GetAsync(id);
 
