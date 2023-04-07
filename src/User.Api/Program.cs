@@ -12,13 +12,13 @@ var builder = WebApplication.CreateBuilder(args);
 var services = builder.Services;
 var conf = builder.Configuration;
 
-#region Api Definition
+#region Definition
 // Swagger/OpenAPI (See. https://aka.ms/aspnetcore/swashbuckle)
 services.AddSwaggerGen();
 services.AddTransient<IConfigureOptions<SwaggerGenOptions>, ConfigureSwaggerGen>();
 #endregion
 
-#region Api Configuration
+#region Configuration
 conf.SetBasePath(Directory.GetCurrentDirectory()+"\\src\\User.Api")
   .AddJsonFile("appsettings.json", optional: false, reloadOnChange: true)
   .AddJsonFile($"appsettings.{Environment.GetEnvironmentVariable("ASPNETCORE_ENVIRONMENT")}.json", optional: true, reloadOnChange: true)
@@ -49,9 +49,10 @@ services.AddAuthorization(o => {
 });
 #endregion
 
-// Add services to the container.
+#region Endpoints
 services.AddControllers();
 services.AddEndpointsApiExplorer();
+#endregion
 
 #region Http Client
 services.AddHttpContextAccessor();
