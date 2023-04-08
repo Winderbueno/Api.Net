@@ -1,13 +1,12 @@
-﻿namespace User.Domain.Enums
+﻿namespace User.Domain.Enums;
+
+public enum Fonction
 {
-    public enum Fonction
-    {
-        Responsable = 0,
-        Employe = 1,
-        Directeur = 2,
-        Inspecteur = 3,
-        ChargeDeMission = 4,
-        Support = 5,
-        Redacteur = 6,
-    }
+  Responsable = 0,
+  Employe = 1,
+  Directeur = 2,
+  Inspecteur = 3,
+  ChargeDeMission = 4,
+  Support = 5,
+  Redacteur = 6,
 }

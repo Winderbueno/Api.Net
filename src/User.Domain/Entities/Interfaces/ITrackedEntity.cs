@@ -1,11 +1,10 @@
-﻿namespace User.Domain.Entities.Interfaces
-{
-    public interface ITrackedEntity
-    {
-        DateTime CreatedAt { get; set; }
-        string CreatedBy { get; set; }
+﻿namespace User.Domain.Entities.Interfaces;
 
-        DateTime ModifiedAt { get; set; }
-        string ModifiedBy { get; set; }
-    }
+public interface ITrackedEntity
+{
+  DateTime CreatedAt { get; set; }
+  string CreatedBy { get; set; }
+
+  DateTime ModifiedAt { get; set; }
+  string ModifiedBy { get; set; }
 }
