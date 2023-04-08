@@ -3,6 +3,7 @@ using FluentValidation;
 using Microsoft.Extensions.Logging;
 using User.Application.Dtos;
 using User.Application.Exceptions;
+using User.Application.Mappers.Interfaces;
 using User.Application.Services.Interfaces;
 using User.Domain.Entities;
 using User.Infrastructure.Identity.Dtos;
@@ -16,6 +17,7 @@ public class UserService : IUserService
 {
   private readonly ILogger<UserService> _logger;
   private readonly IMapper _mapper;
+  private readonly IUserMapper _userMapper;
   private readonly IUserRepository _userRepo;
   private readonly IRoleRepository _roleRepo;
   private readonly HttpClient _identityApi;
@@ -24,12 +26,14 @@ public class UserService : IUserService
   public UserService(
       ILogger<UserService> logger,
       IMapper mapper,
+      IUserMapper userMapper,
       IUserRepository userRepo,
       IRoleRepository roleRepo,
       UserDbContext userDb)
   {
     _logger = logger;
     _mapper = mapper;
+    _userMapper = userMapper;
     _userRepo = userRepo;
     _roleRepo = roleRepo;
     _identityApi = new HttpClient();
@@ -51,7 +55,7 @@ public class UserService : IUserService
     if (resp?.Succeeded == false) throw new ApplicationException("identity.api call error");
 
     // Build response
-    return (mapUserDto(user, resp!.Result!))!;
+    return _userMapper.ToUserDto(user, resp!.Result);
   }
 
   public async Task<UserDto> CreateAsync(UserDto userDto)
@@ -83,7 +87,7 @@ public class UserService : IUserService
     user = await _userRepo.Get(user.UserId, true);
 
     // Build response
-    return mapUserDto(user!, resp!.Result!.First());
+    return _userMapper.ToUserDto(user!, resp!.Result.First());
   }
 
   public async Task<UserDto> UpdateAsync(UserDto userDto)
@@ -102,36 +106,6 @@ public class UserService : IUserService
     _userDb.SaveChanges();
 
     // Build response
-    return mapUserDto(user, resp.Result);
-  }
-
-
-
-  private UserDto mapUserDto(UserK user, IdentityDto identityDto)
-  {
-    // Map Identity
-    UserDto userDto = _mapper.Map<UserDto>(identityDto);
-
-    // Map User
-    if (userDto != null)
-    {
-      userDto.UserId = user.UserId;
-      userDto.RoleId = user.RoleId;
-      userDto.Permissions = FlattenPermission(user);
-    }
-
-    return userDto;
-  }
-
-  private List<string> FlattenPermission(UserK user)
-  {
-    return user.Role?.Features?.ToList()
-      .Aggregate(
-        new List<string>(),
-        (result, value) =>
-        {
-          result.AddRange(value.Permissions.Select(p => p.Name));
-          return result;
-        }) ?? new List<string>();
+    return _userMapper.ToUserDto(user, resp!.Result);
   }
 }
