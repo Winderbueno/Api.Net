@@ -1,5 +1,5 @@
 # Introduction 
-This app integrates in User/Identity solution (Related doc [available here](Todo))  
+This api integrates in User/Identity solution (Related doc [available here](Todo))  
 As defined in architecture, it is a client of :
 * [identity.auth](Todo). Authentication
 * [identity.api](Todo). Manage Identities
