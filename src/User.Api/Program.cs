@@ -9,6 +9,7 @@ using User.Api.Middlewares.Authorization;
 using User.Api.Middlewares.Authentication;
 using User.Api.Middlewares.ErrorHandling;
 using User.Api.Middlewares.Swagger;
+using User.Infrastructure.Identity.Helpers;
 using Claim = User.Infrastructure.Identity.Constants.Claim;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -65,8 +66,9 @@ services.AddProblemDetails();
 services.AddValidatorsFromAssembly(Assembly.Load("User.Application"));
 #endregion
 
-#region Http Client
+#region Infrastructure
 services.AddHttpContextAccessor();
+services.AddTransient<XsrfHandler>();
 #endregion
 
 #region Dependency Project
