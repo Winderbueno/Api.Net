@@ -66,13 +66,9 @@ services.AddProblemDetails();
 services.AddValidatorsFromAssembly(Assembly.Load("User.Application"));
 #endregion
 
-#region Infrastructure
-services.AddHttpContextAccessor();
-services.AddTransient<XsrfHandler>();
-#endregion
-
-#region Dependency Project
+#region Dependency Project Services
 services.AddApplicationServices();
+services.AddInfrastructureServices();
 services.AddPersistenceServices(conf.GetConnectionString("DefaultConnection")!);
 #endregion
 

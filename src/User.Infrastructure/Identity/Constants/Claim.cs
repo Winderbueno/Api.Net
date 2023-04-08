@@ -1,7 +1,6 @@
-﻿namespace User.Infrastructure.Identity.Constants
+﻿namespace User.Infrastructure.Identity.Constants;
+
+public static class Claim
 {
-    public static class Claim
-    {
-        public const string User = "user.api";
-    }
+  public const string User = "user.api";
 }
