@@ -1,11 +1,10 @@
 ﻿using User.Domain.Entities;
 
-namespace User.Persistence.Repositories.Interfaces
+namespace User.Persistence.Repositories.Interfaces;
+
+public interface IUserRepository
 {
-    public interface IUserRepository
-    {
-        Task<IEnumerable<int>> Get();
-        Task<UserK?> Get(int id, bool deepLoad = false);
-        Task<UserK?> GetByIdentityId(Guid identityId);
-    }
+  Task<IEnumerable<int>> Get();
+  Task<UserK?> Get(int id, bool deepLoad = false);
+  Task<UserK?> GetByIdentityId(Guid identityId);
 }
