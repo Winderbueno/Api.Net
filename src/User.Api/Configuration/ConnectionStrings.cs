@@ -1,9 +1,8 @@
-﻿namespace User.Api.Configuration
-{
-    public class ConnectionStrings
-    {
-        public const string SectionKey = "ConnectionStrings";
+﻿namespace User.Api.Configuration;
 
-        public string? DefaultConnection { get; set; }
-    }
+public class ConnectionStrings
+{
+  public const string SectionKey = "ConnectionStrings";
+
+  public string? DefaultConnection { get; set; }
 }

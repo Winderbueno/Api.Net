@@ -2,36 +2,35 @@
 using System.Security.Claims;
 using User.Application.Services.Interfaces;
 
-namespace User.Api.Middlewares.Authentication
+namespace User.Api.Middlewares.Authentication;
+
+public class ClaimsTransformation : IClaimsTransformation
 {
-  public class ClaimsTransformation : IClaimsTransformation
+  private readonly IUserService _userService;
+
+  public ClaimsTransformation(IUserService userService)
+    => _userService = userService;
+
+  public async Task<ClaimsPrincipal> TransformAsync(ClaimsPrincipal principal)
   {
-    private readonly IUserService _userService;
+    var clone = principal.Clone();
 
-    public ClaimsTransformation(IUserService userService)
-      => _userService = userService;
+    /*
+    // Get IdentityId in principal claims
+    var identityId = principal.Claims.ToList().Find(x => x.Type == ClaimTypes.NameIdentifier)?.Value;
 
-    public async Task<ClaimsPrincipal> TransformAsync(ClaimsPrincipal principal)
+    // Get related user
+    var user = await _userService.GetAsync(1); // Todo
+
+    // Transform permissions in Role claims
+    if (principal.Identity!.IsAuthenticated && user != null)
     {
-      var clone = principal.Clone();
+        user.Permissions.ToList().ForEach(p => {
+            ((ClaimsIdentity)clone.Identity)!.AddClaim(
+                new Claim(ClaimTypes.Role, p));
+        });
+    }*/
 
-      /*
-      // Get IdentityId in principal claims
-      var identityId = principal.Claims.ToList().Find(x => x.Type == ClaimTypes.NameIdentifier)?.Value;
-
-      // Get related user
-      var user = await _userService.GetAsync(1); // Todo
-
-      // Transform permissions in Role claims
-      if (principal.Identity!.IsAuthenticated && user != null)
-      {
-          user.Permissions.ToList().ForEach(p => {
-              ((ClaimsIdentity)clone.Identity)!.AddClaim(
-                  new Claim(ClaimTypes.Role, p));
-          });
-      }*/
-
-      return clone;
-    }
+    return clone;
   }
 }
