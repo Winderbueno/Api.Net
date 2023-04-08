@@ -1,3 +1,4 @@
+using User.Application.Mappers.Interfaces;
 using User.Application.Services;
 using User.Application.Services.Interfaces;
 
@@ -9,6 +10,7 @@ public static class ConfigureServices
   {
     #region Mappers
     services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
+    services.AddTransient<IUserMapper, UserMapper>();
     #endregion
 
     #region Services
