@@ -1,4 +1,4 @@
-﻿namespace User.Infrastructure.Identity.Dto
+﻿namespace User.Infrastructure.Identity.Dtos
 {
     public class IdentityDto
     {

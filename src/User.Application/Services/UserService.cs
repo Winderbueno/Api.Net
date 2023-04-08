@@ -5,7 +5,7 @@ using User.Application.Dtos;
 using User.Application.Exceptions;
 using User.Application.Services.Interfaces;
 using User.Domain.Entities;
-using User.Infrastructure.Identity.Dto;
+using User.Infrastructure.Identity.Dtos;
 using User.Infrastructure.Identity.Helpers;
 using User.Persistence.Db;
 using User.Persistence.Repositories.Interfaces;

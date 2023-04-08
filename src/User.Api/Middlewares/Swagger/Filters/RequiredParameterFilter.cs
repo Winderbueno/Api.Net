@@ -9,11 +9,6 @@ namespace User.Api.Middlewares.Swagger.Filters
     /// </summary>
     public class RequiredParameterFilter : IOperationFilter
     {
-        /// <summary>
-        /// Implement IOperationFilter.Apply method
-        /// </summary>
-        /// <param name="operation"></param>
-        /// <param name="context"></param>
         public void Apply(OpenApiOperation operation, OperationFilterContext context)
         {
             operation.Parameters ??= new List<OpenApiParameter>();

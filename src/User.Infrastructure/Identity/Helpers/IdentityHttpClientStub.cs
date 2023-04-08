@@ -1,4 +1,4 @@
-﻿using User.Infrastructure.Identity.Dto;
+﻿using User.Infrastructure.Identity.Dtos;
 
 namespace User.Infrastructure.Identity.Helpers;
 

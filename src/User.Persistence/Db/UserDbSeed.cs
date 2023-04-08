@@ -18,7 +18,7 @@ namespace User.Persistence.Db
                     roles.Add(new Role
                     {
                         RoleId = i++,
-                        UserType = UserType.Entreprise,
+                        UserType = UserType.Interne,
                         Fonction = Fonction.Support,
                         Name = name
                     });

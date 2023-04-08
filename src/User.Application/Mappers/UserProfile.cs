@@ -1,6 +1,6 @@
-﻿using User.Application.Dtos;
-using AutoMapper;
-using User.Infrastructure.Identity.Dto;
+﻿using AutoMapper;
+using User.Application.Dtos;
+using User.Infrastructure.Identity.Dtos;
 
 namespace User.Application.Mappers
 {
