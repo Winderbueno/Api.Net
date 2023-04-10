@@ -9,7 +9,6 @@ using User.Api.Middlewares.Authorization;
 using User.Api.Middlewares.Authentication;
 using User.Api.Middlewares.ErrorHandling;
 using User.Api.Middlewares.Swagger;
-using User.Infrastructure.Identity.Helpers;
 using Claim = User.Infrastructure.Identity.Constants.Claim;
 
 var builder = WebApplication.CreateBuilder(args);
