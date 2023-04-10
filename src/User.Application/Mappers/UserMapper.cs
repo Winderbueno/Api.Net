@@ -20,7 +20,7 @@ public class UserMapper : IUserMapper
     // Map User
     if (userDto != null)
     {
-      userDto.UserId = user.UserId;
+      userDto.UserId = user.UserKId;
       userDto.RoleId = user.RoleId;
       userDto.Permissions = FlattenPermission(user);
     }

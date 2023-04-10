@@ -84,7 +84,7 @@ public class UserService : IUserService
     }
 
     // Get user permissions (.db)
-    user = await _userRepo.Get(user.UserId, true);
+    user = await _userRepo.Get(user.UserKId, true);
 
     // Build response
     return _userMapper.ToUserDto(user!, resp!.Result.First());

@@ -4,7 +4,7 @@ namespace User.Domain.Entities;
 
 public class UserK : TrackedEntity
 {
-  public int UserId { get; set; }
+  public int UserKId { get; set; }
 
   // Id de l'identite dans Identity Services
   public Guid IdentityId { get; set; }

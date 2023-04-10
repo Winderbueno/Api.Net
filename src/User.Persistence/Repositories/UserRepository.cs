@@ -13,7 +13,7 @@ public class UserRepository : IUserRepository
     => _userDb = userDb;
 
   public async Task<IEnumerable<int>> Get()
-    => await _userDb.Users.Select(u => u.UserId).ToListAsync();
+    => await _userDb.Users.Select(u => u.UserKId).ToListAsync();
 
   public async Task<UserK?> Get(int id, bool deepLoad = false)
   {
@@ -24,10 +24,10 @@ public class UserRepository : IUserRepository
           .Include(user => user.Role!)
           .ThenInclude(role => role.Features!)
           .ThenInclude(feature => feature.Permissions)
-          .SingleOrDefaultAsync(e => e.UserId == id);
+          .SingleOrDefaultAsync(e => e.UserKId == id);
     else
       user = _userDb.Users
-          .SingleOrDefault(e => e.UserId == id);
+          .SingleOrDefault(e => e.UserKId == id);
 
     return user;
   }
