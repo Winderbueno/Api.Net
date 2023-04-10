@@ -17,7 +17,7 @@ public static class ConfigureServices
     #endregion
 
     services.AddDbContext<UserDbContext>(o => {
-      o.UseSqlServer(_connectionString, x => x.MigrationsAssembly("User.Persistence"));
+      o.UseSqlite(_connectionString);
     });
 
     services.AddHealthChecks().AddDbContextCheck<UserDbContext>();

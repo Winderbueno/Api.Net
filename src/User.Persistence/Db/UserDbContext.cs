@@ -8,7 +8,7 @@ namespace User.Persistence.Db;
 
 public partial class UserDbContext : DbContext
 {
-  private IHttpContextAccessor _httpCtxRef;
+  private IHttpContextAccessor? _httpCtxRef;
 
   #region DbSet
   public DbSet<UserK> Users { get; set; } = null!;
@@ -17,13 +17,14 @@ public partial class UserDbContext : DbContext
   public DbSet<Permission> Permissions { get; set; } = null!;
   #endregion
 
+  public UserDbContext(DbContextOptions<UserDbContext> options) : base(options) { }
+
   public UserDbContext(
       DbContextOptions<UserDbContext> options,
       IHttpContextAccessor httpCtxRef) : base(options)
     => _httpCtxRef = httpCtxRef;
 
-
-  protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder) { }
+  protected override void OnConfiguring(DbContextOptionsBuilder builder) { }
 
   protected override void OnModelCreating(ModelBuilder builder)
   {
@@ -59,7 +60,7 @@ public partial class UserDbContext : DbContext
             UserDbSeed.RelationRoleFeature(
                 new Dictionary<int, List<int>> {
                             { 1, new List<int> { 1, 2, 3, 4 } }, // Entreprise | Support
-                            { 2, new List<int> { 1, 3, 4 } }, // Entreprise | Charge Mission
+                            { 2, new List<int> { 1, 3, 4 } }  // Entreprise | Charge Mission
                 })));
 
     builder.Entity<Feature>()
@@ -71,7 +72,7 @@ public partial class UserDbContext : DbContext
                             { 1, new List<int> { 1, 2, 3 } }, // Client
                             { 2, new List<int> { 4, 5, 6, 7, 8, 9 } }, // User
                             { 3, new List<int> { 10, 11, 12 } }, // Task
-                            { 4, new List<int> { 13 } }, // Contract
+                            { 4, new List<int> { 13 } } // Contract
                 })));
     #endregion
   }
@@ -97,7 +98,7 @@ public partial class UserDbContext : DbContext
             && (x.State == EntityState.Added
                 || x.State == EntityState.Modified));
 
-    var httpCtxUser = _httpCtxRef.HttpContext?.User;
+    var httpCtxUser = _httpCtxRef!.HttpContext?.User;
     string userName = httpCtxUser?.FindFirst(c => c.Type == ClaimTypes.Email)?.Value ?? // user connection : email
                       httpCtxUser?.FindFirst(c => c.Type == "client_id")?.Value ?? // m2m connection : client_id
                       "anonymous";
