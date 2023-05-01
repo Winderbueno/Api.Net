@@ -12,7 +12,7 @@ public class RoleRepository : IRoleRepository
   public RoleRepository(UserDbContext userDb)
     => _userDb = userDb;
 
-  public async Task<Role?> Get(int id, bool deepLoad = false)
+  public async Task<Role?> GetAsync(int id, bool deepLoad = false)
   {
     Role? role;
 

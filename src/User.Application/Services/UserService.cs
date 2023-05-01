@@ -1,5 +1,6 @@
 ﻿using AutoMapper;
 using FluentValidation;
+using FluentValidation.Results;
 using Microsoft.Extensions.Logging;
 using User.Application.Dtos;
 using User.Application.Mappers.Interfaces;
@@ -40,69 +41,80 @@ public class UserService : IUserService
     _userDb = userDb;
   }
 
-
-  public async Task<IEnumerable<int>> GetAsync()
-    => (await _userRepo.Get()).ToList();
-
   public async Task<UserDto> GetAsync(int id)
   {
     // Get user (.db)
-    var user = await _userRepo.Get(id, true);
+    var user = await _userRepo.GetAsync(id, true);
     if (user == null) throw new NotFoundException("User", "id", id.ToString());
 
     // Get Identity
-    var resp = _identityApi.GetAsyncIdentityStub();
+    var resp = _identityApi.GetIdentityAsyncStub();
     if (resp?.Succeeded == false) throw new ApplicationException("identity.api call error");
 
     // Build response
     return _userMapper.ToUserDto(user, resp!.Result);
   }
 
-  public async Task<UserDto> CreateAsync(UserDto userDto)
-  {
-    // Input check
-    var role = await _roleRepo.Get(userDto.RoleId, true);
-    if (role == null) throw new ValidationException($"Role with id : {userDto.RoleId}, not found in db");
+  public async Task<IEnumerable<int>> SearchAsync(UserSearchDto? dto)
+    {
+        // Search bisa.db
+        var users = await _userRepo.SearchAsync(dto?.Types, dto?.Functions);
 
-    // Create/Updt Identity
+        // Search identities
+        // var resp = await _bidApi.PostAsyncBid<UserSearchBidDto, IEnumerable<int>>(
+        //     "/identities/search", new UserSearchBidDto() { SearchString = dto?.Contains ?? "" });
+
+        // Build response filtering with searched identities
+        return users.Select(u => u!.UserKId);
+    }
+
+  public async Task<UserDto> CreateAsync(UserDto dto)
+  {
+    // Validation
+    var role = await _roleRepo.GetAsync(dto.RoleId, true);
+    if (role == null) throw new ValidationException(new[] { new ValidationFailure("role", "not found in db") });
+
+    // Create/updt Identity
     // Todo - Call Api + Handle Errors (Identity already exists...)
-    IdentityDto identityDto = _mapper.Map<IdentityDto>(userDto);
+    IdentityDto identityDto = _mapper.Map<IdentityDto>(dto);
     var resp = await _identityApi.PostAsyncIdentity<IdentityDto[], IdentityDto[]>("/users", new[] { identityDto });
     if (resp?.Succeeded == false)
     {
       _logger.LogError("Could not create identity: {@errors}", resp?.Errors);
+      throw new ApplicationException(resp?.Errors!.First());
     }
 
     // Create user (.db)
     var identityId = Guid.Empty;
-    var user = await _userRepo.GetByIdentityId(identityId);
-    if (true)
+    var user = await _userRepo.GetByIdentityIdAsync(identityId);
+    if (user == null)
     {
-      user = new UserK { IdentityId = identityId, RoleId = userDto.RoleId };
-      await _userDb.AddAsync(userDto);
+      user = new UserK { IdentityId = identityId, RoleId = dto.RoleId };
+      await _userDb.AddAsync(dto);
       _userDb.SaveChanges();
     }
+    else throw new ApplicationException("User already exists");
 
     // Get user permissions (.db)
-    user = await _userRepo.Get(user.UserKId, true);
+    user = await _userRepo.GetAsync(user.UserKId, true);
 
     // Build response
     return _userMapper.ToUserDto(user!, resp!.Result.First());
   }
 
-  public async Task<UserDto> UpdateAsync(UserDto userDto)
+  public async Task<UserDto> UpdateAsync(UserDto dto)
   {
-    // Input check
-    var user = await _userRepo.Get(userDto.UserId, true);
-    if (user == null) throw new NotFoundException("User", "id", userDto.UserId.ToString());
-    var role = await _roleRepo.Get(userDto.RoleId);
-    if (role == null) throw new ValidationException($"Role with id : {userDto.RoleId}, not found in db");
+    // Validation
+    var user = await _userRepo.GetAsync(dto.UserId, true);
+    if (user == null) throw new NotFoundException("User", "id", dto.UserId.ToString());
+    var role = await _roleRepo.GetAsync(dto.RoleId);
+    if (role == null) throw new ValidationException(new[] { new ValidationFailure("role", "not found in db") });
 
     // Get Identity
     var resp = await _identityApi.GetAsyncIdentity<IdentityDto>($"/users/{user.IdentityId}");
 
     // Update user (.db)
-    user!.RoleId = userDto.RoleId;
+    user!.RoleId = dto.RoleId;
     _userDb.SaveChanges();
 
     // Build response

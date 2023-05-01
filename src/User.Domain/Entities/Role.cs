@@ -11,7 +11,7 @@ public class Role : TrackedEntity
 
   public UserType UserType { get; set; }
 
-  public Fonction Fonction { get; set; }
+  public UserFunction Function { get; set; }
 
   // Nav | Features
   public ICollection<Feature>? Features { get; set; }

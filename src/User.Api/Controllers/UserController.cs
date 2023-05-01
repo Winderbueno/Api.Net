@@ -23,15 +23,6 @@ public class UserController : BaseController
   }
 
   /// <summary>
-  /// Read
-  /// </summary>
-  [HttpGet()]
-  //[Authorize("user.read")]
-  [AllowAnonymous]
-  public async Task<ActionResult<int[]>> GetAsync()
-    => (await _userService.GetAsync()).ToArray();
-
-  /// <summary>
   /// Read by id
   /// </summary>
   [HttpGet("{id:int}")]
@@ -41,9 +32,17 @@ public class UserController : BaseController
     => await _userService.GetAsync(id);
 
   /// <summary>
+  /// Search
+  /// </summary>
+  [HttpPost("search")]
+  [Authorize("user.read")]
+  public async Task<ActionResult<IEnumerable<int>>> SearchAsync(UserSearchDto? dto)
+      => Ok(await _userService.SearchAsync(dto));
+
+  /// <summary>
   /// Create
   /// </summary>
-  [HttpPost()]
+  [HttpPost("create")]
   [Authorize("user.create")]
   public async Task<ActionResult<UserDto>> CreateAsync(UserDto user)
   {
@@ -55,7 +54,7 @@ public class UserController : BaseController
   /// <summary>
   /// Update
   /// </summary>
-  [HttpPut()]
+  [HttpPut("update")]
   [Authorize("user.update")]
   public async Task<ActionResult<UserDto>> UpdateAsync(UserDto user)
   {

@@ -53,6 +53,7 @@ services.AddAuthorization(o => {
 #endregion
 
 #region Endpoints
+services.AddRouting(o => o.LowercaseUrls = true);
 services.AddControllers();
 services.AddEndpointsApiExplorer();
 #endregion

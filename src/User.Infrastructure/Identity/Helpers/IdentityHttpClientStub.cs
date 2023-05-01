@@ -4,7 +4,7 @@ namespace User.Infrastructure.Identity.Helpers;
 
 public static class IdentityHttpClientStubExtensions
 {
-  public static ResultResponse<IdentityDto> GetAsyncIdentityStub(this HttpClient client)
+  public static ResultResponse<IdentityDto> GetIdentityAsyncStub(this HttpClient client)
   {
     ResultResponse<IdentityDto> resp = new () { 
       Succeeded =true,
