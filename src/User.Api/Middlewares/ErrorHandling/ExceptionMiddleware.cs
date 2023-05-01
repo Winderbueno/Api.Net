@@ -1,6 +1,6 @@
-﻿using User.Application.Exceptions;
-using FluentValidation;
+﻿using FluentValidation;
 using Microsoft.AspNetCore.Diagnostics;
+using User.Domain.Exceptions;
 
 namespace User.Api.Middlewares.ErrorHandling;
 

@@ -1,5 +1,5 @@
-﻿using User.Api.Configuration;
-using User.Api.Middlewares.Swagger.Filters;
+﻿using User.Api.Middlewares.Swagger.Filters;
+using User.Domain.Configuration;
 using Microsoft.Extensions.Options;
 using Microsoft.OpenApi.Models;
 using Swashbuckle.AspNetCore.SwaggerGen;

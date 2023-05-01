@@ -2,10 +2,10 @@
 using FluentValidation;
 using Microsoft.Extensions.Logging;
 using User.Application.Dtos;
-using User.Application.Exceptions;
 using User.Application.Mappers.Interfaces;
 using User.Application.Services.Interfaces;
 using User.Domain.Entities;
+using User.Domain.Exceptions;
 using User.Infrastructure.Identity.Dtos;
 using User.Infrastructure.Identity.Helpers;
 using User.Persistence.Db;

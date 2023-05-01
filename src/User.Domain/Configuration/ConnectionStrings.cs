@@ -1,4 +1,4 @@
-﻿namespace User.Api.Configuration;
+﻿namespace User.Domain.Configuration;
 
 public class ConnectionStrings
 {

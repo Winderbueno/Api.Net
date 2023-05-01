@@ -4,11 +4,11 @@ using Microsoft.Extensions.Options;
 using Swashbuckle.AspNetCore.SwaggerGen;
 using System.Reflection;
 using System.Security.Claims;
-using User.Api.Configuration;
 using User.Api.Middlewares.Authorization;
 using User.Api.Middlewares.Authentication;
 using User.Api.Middlewares.ErrorHandling;
 using User.Api.Middlewares.Swagger;
+using User.Domain.Configuration;
 using Claim = User.Infrastructure.Identity.Constants.Claim;
 
 var builder = WebApplication.CreateBuilder(args);
