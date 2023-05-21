@@ -78,7 +78,7 @@ var app = builder.Build();
 if (app.Environment.IsDevelopment())
 {
     app.UseSwagger();
-    app.UseSwaggerUI(o => SwaggerMiddleware.SwaggerUIConf(o));
+    app.UseSwaggerUI(o => SwaggerUIMiddleware.Options(o));
 }
 
 app.UseExceptionHandler(new ExceptionHandlerOptions()
