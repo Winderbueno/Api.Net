@@ -7,8 +7,9 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace User.Api.Controllers;
 
-// [ApiVersion("1.0")]
+// [ApiVersion("1.0")] - Todo. Api Versionning ?
 [Produces("application/json")]
+[AllowAnonymous] // Todo. This deactivate every Authorize attribute
 public class UserController : BaseController
 {
   private readonly IUserService _userService;
@@ -26,8 +27,7 @@ public class UserController : BaseController
   /// Read by id
   /// </summary>
   [HttpGet("{id:int}")]
-  //[Authorize("user.read")]
-  [AllowAnonymous]
+  [Authorize("user.read")]
   public async Task<ActionResult<UserDto>> GetAsync(int id)
     => await _userService.GetAsync(id);
 

@@ -2,9 +2,9 @@
 
 namespace User.Api.Middlewares.Swagger;
 
-public static class SwaggerMiddleware
+public static class SwaggerUIMiddleware
 {
-  public static void SwaggerUIConf(SwaggerUIOptions o)
+  public static void Options(SwaggerUIOptions o)
   {
     // SwaggerUI as OAuth Client
     // https://github.com/domaindrivendev/Swashbuckle.AspNetCore/blob/master/README.md#enable-oauth20-flows

@@ -21,10 +21,6 @@ public class ConfigureSwaggerGen : IConfigureOptions<SwaggerGenOptions>
     // var xmlPath = Path.Combine(AppContext.BaseDirectory, xmlFile);
     // o.IncludeXmlComments(xmlPath);
 
-    // Add 'Username' input on all operation
-    if (ApiConf.Environment != Env.Dev)
-      o.OperationFilter<RequiredParameterFilter>();
-
     // Convert enum in schema definition
     o.SchemaFilter<EnumTypesSchemaFilter>();
 
