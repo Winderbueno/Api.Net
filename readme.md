@@ -27,6 +27,6 @@ This project offers you these different options :
 * Specific Script (Run in « ./Src/Persistence » with powershell)
   * `./Scripts/ResetDb.ps1`. 
   * This script reset the db, delete all migration, create a new init migration and finally update the db with this migration, it is useful during db model design step  
-* Executable Tools (Run in « ./Src/Api/bin/Debug/net6.0 »)
+* Executable Tools (Run in « ./Src/Api/bin/Debug/netX.X »)
   * `./Api.Exe -<cmd>` with `<cmd>`. (Help. –h | Check Migration. –v | Update db with Migration. –m)
   * This tool allow (app & db mngt) logs centralisation in Kibana and avoid installing EFTools on all deployed environment (Int | Acc | Prd)
