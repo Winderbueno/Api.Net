@@ -18,7 +18,7 @@ public static class UserDbSeed
         roles.Add(new Role
         {
           RoleId = i++,
-          UserType = UserType.Intern,
+          UserType = UserType.Internal,
           Function = UserFunction.Support,
           Name = name
         });

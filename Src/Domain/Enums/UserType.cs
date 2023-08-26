@@ -2,8 +2,6 @@
 
 public enum UserType
 {
-    Intern = 0,
-    Partner,
-    Agent,
-    Broker,
+    Internal = 0,
+    External
 }
