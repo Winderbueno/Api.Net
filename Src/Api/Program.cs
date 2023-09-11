@@ -13,23 +13,23 @@ using Claim = Infrastructure.Identity.Constants.Claim;
 
 var builder = WebApplication.CreateBuilder(args);
 var services = builder.Services;
+
+#region Configuration
 var conf = builder.Configuration;
+var env = Environment.GetEnvironmentVariable("ASPNETCORE_ENVIRONMENT");
+conf.SetBasePath(Directory.GetCurrentDirectory())
+  .AddJsonFile("appsettings.json", optional: false, reloadOnChange: true)
+  .AddJsonFile($"appsettings.{env}.json", optional: true, reloadOnChange: true)
+  .Build();
+ApiConf apiConf = conf.GetSection(ApiConf.SectionKey).Get<ApiConf>()!;
+services.Configure<ConnectionStrings>(conf.GetSection(ConnectionStrings.SectionKey));
+services.Configure<ApiConf>(conf.GetSection(ApiConf.SectionKey));
+#endregion
 
 #region Definition
 // Swagger/OpenAPI (See. https://aka.ms/aspnetcore/swashbuckle)
 services.AddSwaggerGen();
 services.AddTransient<IConfigureOptions<SwaggerGenOptions>, ConfigureSwaggerGen>();
-#endregion
-
-#region Configuration
-conf.SetBasePath(Directory.GetCurrentDirectory())
-  .AddJsonFile("appsettings.json", optional: false, reloadOnChange: true)
-  .AddJsonFile($"appsettings.{Environment.GetEnvironmentVariable("ASPNETCORE_ENVIRONMENT")}.json", optional: true, reloadOnChange: true)
-  .Build();
-
-ApiConf apiConf = conf.GetSection(ApiConf.SectionKey).Get<ApiConf>()!;
-services.Configure<ConnectionStrings>(conf.GetSection(ConnectionStrings.SectionKey));
-services.Configure<ApiConf>(conf.GetSection(ApiConf.SectionKey));
 #endregion
 
 #region Authentication
